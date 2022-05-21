@@ -48,9 +48,18 @@ def remove_db(sql):
     try:
         cur.execute(sql)
         conn.commit()
+        cur.close()
     except (Exception, pg2.DatabaseError) as error:
         print(f"Error: {error}")
-        conn.rollback()
+    cur.close()
+
+def update_db(sql):
+    conn = connect_db()
+    cur = conn.cursor()
+    try:
+        cur.execute(sql)
+        conn.commit()
         cur.close()
-        return 1
+    except (Exception, pg2.DatabaseError) as error:
+        print(f"Error: {error}")
     cur.close()

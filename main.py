@@ -38,7 +38,7 @@ def menu_presentation(database):
     print("=" * 10)
 
     while True:
-
+        print("=-" * 20)
         print("Escolha uma opção: ")
         print("[1] Adicionar registro")
         print("[2] Mostrar os dados")
@@ -71,22 +71,27 @@ def menu_presentation(database):
             for item in reg:
                 print(item)
             print(f"\nAo todo, foram localizados {len(reg)} registros.")
-            print("=-" * 20)
+
 
         # Atualiza um registro no banco de dados.
         elif choice == '3':
-            id = int(input("Digite o indice do item: "))
+            id = int(input("Digite o indice do item a ser alterado: "))
+
+            name = input("Digite o nome: ")
+            present_schools(schools = schools)
+            school = int(input("Digite o n° da Escola: "))
+            email = input("Digite o e-mail @alura: ")
+            sql = f"""UPDATE {str(database)} SET nome = '{name}', escola = {school}, email = '{email}' WHERE id = {str(id)}"""
+
+            update_db(sql)
 
         # Remove um registro no banco de dados.
         elif choice == '4':
-            id_reg = int(input("Digite o indice do item: "))
-            sql = f"""DELETE 
-                        FROM {database}
-                        WHERE id = {str(id_reg)};"""
-            remove_db(id_reg)
+            id = int(input("Digite o indice do item a ser removido: "))
+            sql = f"""DELETE FROM {str(database)} WHERE id = {str(id)}"""
+            remove_db(sql)
         elif choice == '5':
             break
-
         else:
             print("Opção inválida. Tente novamente")
             print("*" * 20)
