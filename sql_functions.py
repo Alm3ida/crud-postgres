@@ -31,7 +31,6 @@ def query_db(sql):
 def insert_db(sql):
     conn = connect_db()
     cur = conn.cursor()
-
     try:
         cur.execute(sql)
         conn.commit()
@@ -41,4 +40,17 @@ def insert_db(sql):
         cur.close()
         return 1
     
+    cur.close()
+
+def remove_db(sql):
+    conn = connect_db()
+    cur = conn.cursor()
+    try:
+        cur.execute(sql)
+        conn.commit()
+    except (Exception, pg2.DatabaseError) as error:
+        print(f"Error: {error}")
+        conn.rollback()
+        cur.close()
+        return 1
     cur.close()
