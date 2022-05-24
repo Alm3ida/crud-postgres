@@ -1,6 +1,5 @@
 import pandas as pd
 import psycopg2 as pg2
-from time import sleep
 from utilitary_functions import present_schools 
 from sql_functions import *
 
@@ -101,7 +100,6 @@ def menu_presentation(database):
 
 
 database = "escola_semente"
-
 # Cria o banco de dados da escola semente    
 sql = f"""DROP TABLE IF EXISTS {database};
         CREATE TABLE {database}
@@ -111,17 +109,17 @@ sql = f"""DROP TABLE IF EXISTS {database};
                 escola INTEGER NOT NULL,
                 email VARCHAR(40) NOT NULL
             )"""
-
 create_db(sql)
 
+# Inserindo os dados primários
 for i in range(df.shape[0]):
     insert_db(f"""INSERT INTO {database}(nome, escola, email) VALUES (\'{df.loc[i, 'Nome']}\', \'{df.loc[i, 'Escola']}\', \'{df.loc[i, 'Email']}\')""")
 
 menu_presentation(database)
 
 
-# print(df.shape)
-# print(df.iloc[0]['Nome'])
+
+### Área de testes
 
 # reg = query_db('SELECT * FROM escola_semente')
 # print(reg)
@@ -138,7 +136,6 @@ menu_presentation(database)
 #               'Emerson Laranja': [2, 'emerson@email']
 #               }
 
-
 # # Cria o banco de dados com o nome das escolas
 # sql = """DROP TABLE IF EXISTS alura_content;
 #           CREATE TABLE alura_content(
@@ -148,7 +145,6 @@ menu_presentation(database)
 # create_db(sql)
 
 # Define uma base de dados com o nome das Escolas
-
 
 # for school in schools.items():
 #     insert_db(f"""INSERT INTO alura_content(nome) VALUES ('{str(school[1])}');""")
